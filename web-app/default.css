@@ -1,0 +1,157 @@
+/* imports the font "lilita one" and put the background colour of webpage */
+body {
+    font-family: 'Lilita One', cursive;
+    background-color: rgb(136, 194, 245);
+}
+
+
+/*gameboard is a sqaure 200px by 200px, flex moves the two boards next to each other with the space between them*/
+#gamesboard-container {
+    margin: auto;
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:center;
+
+}
+
+.game-board{
+    width:200px;
+    height:200px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10px;
+    /* justify-content:center; */
+}
+
+/* making the gameboard by having 10x10 squares where gameboard is 200px in lenggth and width so divide by 10 each block is 20px, also gives the black border */
+.block{
+    width:20px;
+    height: 20px;
+    padding: 1px;
+    border:solid 0.5px black;
+    box-sizing: border-box;
+}
+
+
+/* the option container with all the ships ready to be placed */
+.options-container{
+    width: 100%;
+    height: 50px;
+    margin: 0 auto;
+    padding: 10px;
+    background-color: lightcyan;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/*display flex put ships in lines with each other horiztally rather than vertically 
+align centre puts them in centre of options container
+margin spaces out the options container top to bottom by 30px and left and right by 0 so we can add stuff at the top and bottom
+
+
+/* DESTROYER preeview creates the yellow destroyer ship that is 2:1 in ratio and margin is used to space it out 
+the border radius and padding make them rounded in shape*/
+.destroyer{
+    background-color: yellow;
+}
+.destoyer-preview{
+    width:20px;
+    height:10px;
+    margin:3px;
+    border-radius: 5px;
+    padding: -1px;
+}
+
+/* submarine 3:1 in ratio, purple*/
+.submarine{
+    background-color: purple;
+}
+.submarine-preview{
+    width:30px;
+    height:10px;
+    margin:3px;
+    border-radius: 5px;
+    padding: -1px;
+}
+
+/* cruiser 3:1 in ratio,green*/
+.cruiser{
+    background-color:green;
+}
+.cruiser-preview{
+    width:30px;
+    height:10px;
+    margin:3px;
+    border-radius: 5px;
+    padding: -1px;
+}
+
+/* battleshio 4:1 in ratio, orange */
+.battleship{
+    background-color: orange;
+}
+.battleship-preview{
+    width:40px;
+    height:10px;
+    margin:3px;
+    border-radius: 5px;
+    padding: -1px;
+}
+
+/* carrier 5:1 in ratio, blue */
+.carrier{
+    background-color: blue;
+}
+.carrier-preview{
+    width:50px;
+    height:10px;
+    margin:3px;
+    border-radius: 5px;
+    padding: -1px;
+}
+
+/* the trail colour when dragging piece to board */
+
+.hover {
+    background-color: lightgray;
+}
+
+
+/* part of gameboard turns red if part of ship is hit */
+.boom {
+    padding: 0px;
+    background-color:red !important;
+    border-radius: 10%;
+    border-radius: 10px;
+    padding: -5px;
+    border:none -5px;
+}
+
+/* part of gameboard turns grey if no ship is present where we clicked it */
+.empty { 
+    width:20px;
+    height: 20px;
+    /* border:solid 2px rgb(49, 47, 47); */
+    box-sizing: border-box;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    background-color: gray !important;
+    border-radius: 50%;
+
+
+
+}
+
+/* MAKES COMPUTER PEICES SAME COLOUR AS BOARD SO YOU CAN't SEE THEM */
+#computer .destroyer,
+#computer .submarine,
+#computer .cruiser,
+#computer .battleship,
+#computer .carrier {
+    background-color: teal;
+}
+

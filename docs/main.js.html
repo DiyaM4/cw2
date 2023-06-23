@@ -1,4 +1,48 @@
-import R from "./ramda.js";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>main.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Ship.html">Ship</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addshippiece">addshippiece</a></li><li><a href="global.html#checksScore">checksScore</a></li><li><a href="global.html#computerGO">computerGO</a></li><li><a href="global.html#createBoard">createBoard</a></li><li><a href="global.html#dragOver">dragOver</a></li><li><a href="global.html#dragStart">dragStart</a></li><li><a href="global.html#dropShip">dropShip</a></li><li><a href="global.html#flip">flip</a></li><li><a href="global.html#gamesboardcontainer">gamesboardcontainer</a></li><li><a href="global.html#getvalidity">getvalidity</a></li><li><a href="global.html#handleClick">handleClick</a></li><li><a href="global.html#highlightArea">highlightArea</a></li><li><a href="global.html#optioncontainer">optioncontainer</a></li><li><a href="global.html#startgame">startgame</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">main.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import R from "./ramda.js";
 /**
  * The code uses document.getElementById method to retrieve the HTML element with the 'gamesboard-container' then assigns it the constant gamesboardcontainer. It can then be used to  mainuplate element properties
  */
@@ -11,8 +55,8 @@ const gamesboardcontainer = document.getElementById('gamesboard-container')
  */
 const optioncontainer= document.querySelector('.options-container');
 
-//searches through anything in rotate button
-const rotatebutton = document.querySelector('#flip-button')
+//searches through anything in flip button
+const flipbutton = document.querySelector('#flip-button')
 
 const startbutton = document.querySelector('#start-button')
 
@@ -23,11 +67,11 @@ const turnDisplay = document.querySelector('#turn-display')
 // CHOOSING OPTIONS
 let angle = 0;
 
-/**s
- * THIS ROTATES THE SHIPS - if we click on rotate button it will rotate it 90 degrees
+/**
+ * THIS ROTATES THE SHIPS - if we click on flip button it will flip it 90 degrees
  */
-function rotate () {
-    //start off with angle being 0 ,we click rotate so we get 0 and asign the angle 90 to it and thats what gets passed through. 
+function flip () {
+    //start off with angle being 0 ,we click flip so we get 0 and asign the angle 90 to it and thats what gets passed through. 
     //if else check it again, if its not zero it must be something else so we make it 0.
     const optionships = Array.from(optioncontainer.children);
     if (angle === 0 ){
@@ -35,13 +79,13 @@ function rotate () {
     }else{
         angle = 0;
     }
-    // console.log("rotateping")
+    // console.log("flipping")
 // ADVANCED version of code below which will replace the 5 lines above , if angle = 90 return 90 or else retun 0
     // angle = angle ===0? 90: 0
     optionships.forEach(optionship => optionship.style.transform=`rotate(${angle}deg)`)
     console.log("done")
 }
-rotatebutton.addEventListener('click', rotate)
+flipbutton.addEventListener('click', flip)
 
 //CREATING BOARDS
 const width = 10
@@ -58,7 +102,7 @@ function createBoard(colour, user) {
     gameboardcontainer.style.backgroundColor=colour
     gameboardcontainer.id= user
 //this turns the gameboard into 100 squares within the gameboard
-    for (let i=0; i< width*width; i++) {
+    for (let i=0; i&lt; width*width; i++) {
         const block = document.createElement('div')
         block.classList.add('block')
         block.id = i
@@ -72,7 +116,7 @@ function createBoard(colour, user) {
  * This creates two boards, one for player(Dodgerblue in colour), one for computer(pink)
  */
 createBoard('DodgerBlue', 'player')
-createBoard('teal', 'computer')
+createBoard('pink', 'computer')
 
 
 
@@ -114,17 +158,17 @@ function getvalidity(allBoardBlocks, ishorizontal, startIndex, ship){
        //VALID START HERE ENSURES THE SHIPS ARE NOT PLACES OUTSIDE THE GAMEBOARD by making sure its not over 100
     //a valid start if horizonal is true, then we want to get the random start index and check if it is small than width*width which is less than 100
 //we are pushing it to a valid index
-    let validStart = ishorizontal ? startIndex <= width * width - ship.length ? startIndex:
+    let validStart = ishorizontal ? startIndex &lt;= width * width - ship.length ? startIndex:
         width*width -ship.length:
 //VERTICAL checking if smaller than 100- ship lenngth *width+width then its valid so we return the start index
-        startIndex <= width * width - width * ship.length ? startIndex :
+        startIndex &lt;= width * width - width * ship.length ? startIndex :
             startIndex - ship.length * width + width
 
 
     let shipblocks=[]
 // console.log(validStart)
 //this allows you to get the bloacks adjacent to each other (up and downwards)
-    for(let i=0; i<ship.length; i++){
+    for(let i=0; i&lt;ship.length; i++){
         if (ishorizontal){
             shipblocks.push( allBoardBlocks[Number(validStart) + i ])
         }else{
@@ -143,7 +187,7 @@ function getvalidity(allBoardBlocks, ishorizontal, startIndex, ship){
         valid = shipblocks.every((_shipblock,index) => shipblocks[0].id %width!==width- (shipblocks.length-(index+1)))
     }else{
 //we know its valid due to code:
-        valid = shipblocks.every((_shipblock,index) => shipblocks[0].id <90 + (width*index + 1))
+        valid = shipblocks.every((_shipblock,index) => shipblocks[0].id &lt;90 + (width*index + 1))
     }
 
 //checks if space is taken for every shipblock that exists by checking the class list
@@ -164,7 +208,7 @@ function getvalidity(allBoardBlocks, ishorizontal, startIndex, ship){
  */
 function addshippiece(user, ship, startId) {
     const allBoardBlocks = document.querySelectorAll(`#${user} div`)
-    let randomBoolean= Math.random() <0.5
+    let randomBoolean= Math.random() &lt;0.5
     let ishorizontal= user ==='player'? angle ===0: randomBoolean
     let randomStartIndex= Math.floor(Math.random() *width *width)
     let startIndex= startId? startId: randomStartIndex
@@ -174,7 +218,7 @@ function addshippiece(user, ship, startId) {
 
 //THIS LOOP WILL KEEP RUUNING in a loop unti all the ships can be placed on the board without them being off limits
 //tells you the ships name and if it has a ship in the position
-    if (valid && nottaken){
+    if (valid &amp;&amp; nottaken){
         shipblocks.forEach(shipblock =>{
             shipblock.classList.add(ship.name)
             shipblock.classList.add('taken')
@@ -254,7 +298,7 @@ function highlightArea (startIndex,ship) {
     const{shipblocks, valid, nottaken}= getvalidity(allBoardBlocks, ishorizontal, startIndex, ship)
 
 //if its a valid move and not taken, makes sure hover has a timeout
-    if (valid &&nottaken){
+    if (valid &amp;&amp;nottaken){
         shipblocks.forEach(shipblock => {
             shipblock.classList.add('hover')
             setTimeout(() => shipblock.classList.remove('hover'), 500)
@@ -302,10 +346,7 @@ function handleClick(element){
         if (element.target.classList.contains('taken'))
             element.target.classList.add('boom')
             infoDisplay.textContent= 'You hit the computers ship!!!'
-            console.log("class3", element)
-            console.log("class0", element.target.classList)
-            let classes = Array.from(element.target.classList)
-            console.log("class", classes)
+            let classes = Array.apply(element.target.classList)
             // the classes will not have following names below and therfore only the ship names
             classes = classes.filter(className => className!=='block')
             classes = classes.filter(className => className!=='boom')
@@ -344,14 +385,14 @@ function computerGO(){
             let randomGO = Math.floor(Math.random() * width *width)
             const allBoardBlocks = document.querySelectorAll('#player div')
             // we know if container is taken and boom then computer gets 2nd chance
-            if (allBoardBlocks[randomGO].classList.contains('taken') &&
+            if (allBoardBlocks[randomGO].classList.contains('taken') &amp;&amp;
                 allBoardBlocks[randomGO].classList.contains('boom')
             // if computer hits ship, it will display msg and show the 3classes of block boom and taken
             ){
                 computerGO()
                 return
             } else if (
-                allBoardBlocks[randomGO].classList.contains('taken')&&
+                allBoardBlocks[randomGO].classList.contains('taken')&amp;&amp;
                 !allBoardBlocks[randomGO].classList.contains('boom')
             ){
                 allBoardBlocks[randomGO].classList.add('boom')
@@ -395,13 +436,11 @@ function checksScore(user, userhits,usersunkships){
         ){
             // updates user on which ship they hit
             if (user === 'player') {
-                console.log("test")
-                infoDisplay.textContent= `You sunk the computer's ${shipname}`
+                infoDisplay.textContent= `You sunk the computer's $shipname'`
                 playerhits=userhits.filter(storedshipname => storedshipname!== shipname)
             }
             if (user === 'computer') {
-                console.log("test")
-                infoDisplay.textContent= `Computer sunk your ${shipname}`
+                infoDisplay.textContent= `Computer sunk your $shipname'`
                 comouterhitsrhits=userhits.filter(storedshipname => storedshipname!== shipname)
             }
             usersunkships.push(shipname)
@@ -419,11 +458,11 @@ function checksScore(user, userhits,usersunkships){
     // WIN/ LOST MESSAGE
     // checks for each user if all 5 ships are sunken and respecitvely says who won or lost
     // gameover ensures you can't interact with it later
-    if(playersunkships.length===5) {
+    if(playersunkships===5) {
         infoDisplay.textContent='You have successfully sunken all 5 computer ships! YOU WIN!!!'
         gameover=true
     }
-    if(computersunkships.length===5) {
+    if(computersunkships===5) {
         infoDisplay.textContent='The computer has sunken all 5 of your ships. You lost :( Better luck next time!'
         gameover=true
     }
@@ -431,4 +470,28 @@ function checksScore(user, userhits,usersunkships){
 }
 
 // listens for click of the start button to start the game
-startbutton.addEventListener('click',startgame)
+startbutton.addEventListener('click',startgame)</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a> on Fri Jun 23 2023 14:27:35 GMT+0100 (British Summer Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+
+</body>
+</html>

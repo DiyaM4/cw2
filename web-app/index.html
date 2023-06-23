@@ -3,7 +3,110 @@
 <!doctype html> <!-- This first line tells browsers to expect modern standard html 5 -->
 <html lang="en-gb"> <!-- This is indicates the page is written in British English, useful for accessibility -->
 <meta charset="utf-8"> <!-- This indicates how the file is encoded. utf-8 is standard -->
-<title>Your Web-app Title</title> <!-- All pages need a title, this will be displayed in the browser's title bar -->
+<title>Battleships</title> <!-- All pages need a title, this will be displayed in the browser's title bar -->
 <link rel="stylesheet" href="default.css"> <!-- Import style sheet – default.css -->
 <link rel="icon" href="./assets/favicon.png"> <!-- Import 'Favorites Icon' – favicon.png -->
+
 <script type="module" src="main.js"></script> <!-- Load the main script. Must be type="module". Have only one of these -->
+
+<!-- FONTS -->
+<!-- <link rel="preconnect" href="https://fonts.googleapis.com"> -->
+<!-- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> -->
+<!-- <link href="https://fonts.googleapis.com/css2?family=Ysabeau+SC:wght@900&display=swap" rel="stylesheet"> -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
+
+<!-- Battleships title  the one put in comments is to get the title in bold-->
+<!-- <center><hk><strong>Battleships</strong></hk></center> -->
+
+
+<!-- creates title of battleships -->
+<div style = "text-align:center;">
+    <font size="40">  
+        Battleships
+    </font>
+    <!-- font size of battleships -->
+    
+
+    <!-- <center><hk>Battleships</hk></center> -->
+
+
+    <!-- div holds the game info , p element has span so we can break up the element and put text on it 
+        turn display shows whos turn it is  -->
+    <div id="game-info">
+        <p style="text-decoration: underline">Turn</p>
+        <span id="turn-display"></span>
+        <p style="text-decoration: underline">Info</p>
+        <span id="info"></span>
+    </div> 
+<!--        div is going to hold our gameboard  --> -->
+    <div id="gamesboard-container"></div>
+
+<!--        div is going to hold our options of all the ships we bring out (and the next has all the differnt the single ships and has dragging true so we can drag them onto the board)
+        it has two elements destroyer preview (for the size of ship- width, height margin) and destoyer (for the color) - as see in ddeault.css file  --> -->
+    <div class="options-container">
+        <div id="0" class="destoyer-preview destroyer" draggable="true"></div>
+        <div id="1" class="submarine-preview submarine" draggable="true"></div>
+        <div id="2" class="cruiser-preview cruiser" draggable="true"></div>
+        <div id="3" class="battleship-preview battleship" draggable="true"></div>
+        <div id="4" class="carrier-preview cruiser" draggable="true"></div>
+    </div>
+
+    <!-- first button to rotate pieces and second to start the game-->
+    <button id="flip-button">FLIP</button>
+    <button id="start-button">START</button>
+
+    <p>
+        Battleships is a two-player board game where players go to war with the aim to pinpoint and sink one other's warships. 
+    </p>
+    <p>
+Notes on the game:
+-Red means a ship has been hit
+-Grey means no ship is present at that location
+</p>
+<p>
+-The winner is the first person to sink all their enemies' ships!
+    </p>
+</div>
+
+<!-- table -->
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table, th, td {
+  border: 1px solid;
+}
+
+table {
+  width: 20%;
+}
+</style>
+</head>
+<body>
+
+<table>
+  <tr>
+    <th>Battleship</th>
+    <th>Length</th>
+  </tr>
+  <tr>
+    <td>Carrier</td>
+    <td>5</td>
+  </tr>
+  <tr>
+    <td>Battleship</td>
+    <td>4</td>
+  </tr>
+  <tr>
+    <td>Submarine</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td>Cruiser</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td>Destroyer</td>
+    <td>2</td>

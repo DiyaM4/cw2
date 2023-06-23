@@ -1,0 +1,114 @@
+//on main.js
+import R from "./ramda.js";
+
+
+cons computerchoicedisplay = document.getElementById('computer-choice');
+const userchoicedisplay = document.getElementById('user-choice');
+const resultDisplay=document.getElementById('result');
+//this gets all the possible choices
+const possiblechoice=document.querySelectorAll('button');
+//listens for a click of the button and 2nd line saves what user clicked as user chouce
+let userchoice
+let computerchoice
+let result
+
+possiblechoice.forEach(possiblechoice => possiblechoice.addEventListener('click',(e)=>{
+    //dislay user choice
+    userchoice=e.target.id
+    userchoicedisplay.innerHTML=userchoice
+    //assigningthe userchoicesiaplay as user chooice thing the user clicked
+    generatecomputerchoice()
+    getresult()
+}))
+
+function generatecomputerchoice(){
+    //genrstes random number and mutlpies by 3 // or yoy can use possiblechouc.length as it will give 3 too
+   //mahtsf floor to ensure itsa full ineteger
+    const randomNumber=Math.floor(Math.random()*3)+1
+//depedning onn th e rnradom number genated it will play the following
+    if (randomNumber === 1) {
+        computerchoice = 'rock'
+    }
+    if (randomNumber === 2) {
+        computerchoice = 'scissors'
+    }
+    if (randomNumber === 3) {
+         computerchoice = 'paper'
+    }
+    //this acc displays it on the screen
+    computerchoicedisplay.innerHTML=computerchoice
+}
+
+function getresult() {
+    if (computerchoice === userchoice) {
+        result='its a draw'
+    }
+    if (computerchoice === 'rock' && userchoice == "paper") {
+        result='you win'
+    }
+    if (computerchoice === 'rock' && userchoice == "scissors") {
+        result='you lost'
+    }
+    if (computerchoice === 'paper' && userchoice == "scissors") {
+        result='you win'
+    }
+    if (computerchoice === 'paper' && userchoice == "rock") {
+        result='you lose'
+    }
+    if (computerchoice === 'scissors' && userchoice == "rock") {
+        result='you win'
+    }
+    if (computerchoice === 'scissors' && userchoice == "paper") {
+        result='you win'
+    }
+    resultDisplay.innerHTML=result
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//on index.html
+<!-- In HTML Comments are written like this -->
+<!-- They can all be removed for your apps -->
+<!doctype html> <!-- This first line tells browsers to expect modern standard html 5 -->
+<html lang="en-gb"> <!-- This is indicates the page is written in British English, useful for accessibility -->
+<meta charset="utf-8"> <!-- This indicates how the file is encoded. utf-8 is standard -->
+<title>Battleships</title> <!-- All pages need a title, this will be displayed in the browser's title bar -->
+<link rel="stylesheet" href="default.css"> <!-- Import style sheet – default.css -->
+<link rel="icon" href="./assets/favicon.png"> <!-- Import 'Favorites Icon' – favicon.png -->
+
+
+<h2>computer choice:<span id="computer-choice"></span<></h2>
+<h2>Your choice:<span id="user-choice"></span<></h2>
+<h2>result:<span id="result"></span<></h2>
+
+
+<button id="rock">rock</button>
+<button id="paper">paper</button>
+<button id="scissors">scissors</button>
+
+<script type="module" src="main.js"></script> <!-- Load the main script. Must be type="module". Have only one of these -->
+
+<h1> Battleships is a two-player game where you try destory your enemy's ships whilst also trying to strategically place yours</h1>
+<u1>
+    <li>1,2,3</li>
+</u1>
+
+Battleships.empty_board = function (width= 7, height = 7) {
+    R.range(0,height).map(function() {}
+    R.range(0,width).map(() =>true);
+});
+};
+<input type ="button" value="click me"

@@ -1,18 +1,13 @@
 import R from "./ramda.js";
-/**
- * The code uses document.getElementById method to retrieve the HTML element with the 'gamesboard-container' then assigns it the constant gamesboardcontainer. It can then be used to  mainuplate element properties
- */
+
 const gamesboardcontainer = document.getElementById('gamesboard-container')
+
 // console.log(gamesboardcontainer)
 
-
-/**
- * This code selects the HTML element with the class "options-container" and assigns it to the variable "optioncontainer
- */
 const optioncontainer= document.querySelector('.options-container');
 
-//searches through anything in rotate button
-const rotatebutton = document.querySelector('#flip-button')
+//searches through anyhting in flip buttop
+const flipbutton = document.querySelector('#flip-button')
 
 const startbutton = document.querySelector('#start-button')
 
@@ -20,38 +15,32 @@ const infoDisplay = document.querySelector('#info')
 const turnDisplay = document.querySelector('#turn-display')
 
 
+
+//if we click on flip button it will flip it 90 degrees
+//start off with angle being 0 ,we click flip so we get 0 and asign the angle 90 to it and thats what gets passed through. if else  check again if its not zero it must be something eslse so we make it 0
+
+
+
 // CHOOSING OPTIONS
 let angle = 0;
-
-/**s
- * THIS ROTATES THE SHIPS - if we click on rotate button it will rotate it 90 degrees
- */
-function rotate () {
-    //start off with angle being 0 ,we click rotate so we get 0 and asign the angle 90 to it and thats what gets passed through. 
-    //if else check it again, if its not zero it must be something else so we make it 0.
+function flip () {
     const optionships = Array.from(optioncontainer.children);
     if (angle === 0 ){
         angle = 90;
     }else{
         angle = 0;
     }
-    // console.log("rotateping")
+    // console.log("flipping")
 // ADVANCED version of code below which will replace the 5 lines above , if angle = 90 return 90 or else retun 0
     // angle = angle ===0? 90: 0
     optionships.forEach(optionship => optionship.style.transform=`rotate(${angle}deg)`)
     console.log("done")
 }
-rotatebutton.addEventListener('click', rotate)
+flipbutton.addEventListener('click', flip)
 
-//CREATING BOARDS
+//CREATING BOARDS - creates a pink and yellow bboard
 const width = 10
 
-
-/**
- * This part of the code creates two different coloured boards for the two users player and computer
- * @param {*} colour this is the input for the colour of the gameboard
- * @param {*} user this includes two parameters: player and computer
- */
 function createBoard(colour, user) {
     const gameboardcontainer = document.createElement('div')
     gameboardcontainer.classList.add('game-board')
@@ -67,31 +56,20 @@ function createBoard(colour, user) {
     gamesboardcontainer.append(gameboardcontainer)
 }
 
-
-/**
- * This creates two boards, one for player(Dodgerblue in colour), one for computer(pink)
- */
-createBoard('DodgerBlue', 'player')
-createBoard('teal', 'computer')
+//yellow for player and pick for comouter
+createBoard('yellow', 'player')
+createBoard('pink', 'computer')
 
 
 
-//CREATING THE SHIPS
-/**
- * The class ship holds the name of the individual ships and their size
- */
+//Creating ships
+//
 class Ship{
-    /**
-     * the Ship class constructor takes in two parameters listed below "name" and "length"
-     * @param {*} name This holds the name of the different types of ship
-     * @param {*} length This input is used to represent the length of each ship
-     */
     constructor(name, length){
         this.name = name
         this.length = length
     }
 }
-
 //ship lengths
 const destroyer = new Ship('destroyer', 2)
 const submarine = new Ship('submarine', 3)
@@ -102,21 +80,13 @@ const carrier = new Ship('carrier', 5)
 const ships = [destroyer, submarine, cruiser, battleship, carrier]
 let notDropped
 
-/**
- * Validity and valid start here is used to ensure ships ar not placed outside the gameboard
- * @param {*} allBoardBlocks this input is for all the block elements on the board
- * @param {*} ishorizontal this input checks if the  ships are horizontal using a boolean
- * @param {*} startIndex the index refers to the starting place the ship will be placed on the board of the 100 elements
- * @param {*} ship array that contains all the blocks needed to place the ship  on the gameboard
- * @returns return the function - here it returns shipsblocks if they are placed  outside gameboard.
- */
 function getvalidity(allBoardBlocks, ishorizontal, startIndex, ship){
-       //VALID START HERE ENSURES THE SHIPS ARE NOT PLACES OUTSIDE THE GAMEBOARD by making sure its not over 100
+       //VALID START HERE ENSUURES THE SHIPS ARE NOT PLACES OUTSIDE THE GAMEBOARD by making sure its not over 100
     //a valid start if horizonal is true, then we want to get the random start index and check if it is small than width*width which is less than 100
-//we are pushing it to a valid index
+//we are pushing it to a valid inndex
     let validStart = ishorizontal ? startIndex <= width * width - ship.length ? startIndex:
         width*width -ship.length:
-//VERTICAL checking if smaller than 100- ship lenngth *width+width then its valid so we return the start index
+//VERTICAL checking is is smaller than 100- ship lenngth *width then its valid so we return the start index (:randomstart indea 2nd time means otherwise...)
         startIndex <= width * width - width * ship.length ? startIndex :
             startIndex - ship.length * width + width
 
@@ -132,48 +102,42 @@ function getvalidity(allBoardBlocks, ishorizontal, startIndex, ship){
         }
     }   
 //THIS PART OF THE CODE MAKES SURE THE PIECES DO NOT OVERLAP
-
-//checks every single shipblock and it loopovers each shipblock
-//we want to get id of the first one (indicated by [0])
-//the width should not = the width-shipblockslength
-//underscore is used because we only care about the index for this code
+//checking every singl shipblock and loopover each shipblock, we want to get id of the first one (indicated by [0])
+//the width should not the width-shipblockslength
+//underscorse is used because we only care about the index for this code
+//THIS BIT IS A BIT DIFFERENT
 
     let valid
     if(ishorizontal){
         valid = shipblocks.every((_shipblock,index) => shipblocks[0].id %width!==width- (shipblocks.length-(index+1)))
     }else{
-//we know its valid due to code:
+//we know its validdue to code:
         valid = shipblocks.every((_shipblock,index) => shipblocks[0].id <90 + (width*index + 1))
     }
 
-//checks if space is taken for every shipblock that exists by checking the class list
-// we are checking its class list and if it is in take we can count it as nottaken
-//RETURNS THE SHIPBLOCKS IF ITS VALID AND IF ITS TAKEN
+//check if space is taken for every shipblock that exists we are checking its class list and if it is in take we can count it as nottaken
+//RETURNS THE SHIPBLOCKA IF ITS VALID AND IF ITS TAKEN
     const nottaken = shipblocks.every(shipblock=>!shipblock.classList.contains('taken'))
     return {shipblocks, valid, nottaken}
 
 }
 
 
-//maths floor will give you a number from 0 to 99 each time and it will be assigned to random start index and ensure its and integer
-//is horizontal will check for angle, if =0 horizontal is true, othwerwise we will get a boolean
-/**
- * @param {*} user The user paramter here is used to specify whether the function is adding a ship piece for the player or computer
- * @param {*} ship This parameter defines the type of ship being added
- * @param {*} startId This check if the starting id exists and if not passed it will return a random start index for the ship piece
- */
+//maths floor will give you a number from 0 to 99 each time and it will be assigned to random start index. is horzbtal will cgeck for angle if it =0 horizotnal is tru othwerwise we will get a boolean
 function addshippiece(user, ship, startId) {
     const allBoardBlocks = document.querySelectorAll(`#${user} div`)
     let randomBoolean= Math.random() <0.5
     let ishorizontal= user ==='player'? angle ===0: randomBoolean
     let randomStartIndex= Math.floor(Math.random() *width *width)
+
+//if start id exsits we retun start id othrwise we retun ranomstart inde
     let startIndex= startId? startId: randomStartIndex
 
     const {shipblocks, valid, nottaken} = getvalidity(allBoardBlocks, ishorizontal, startIndex, ship)
 
 
-//THIS LOOP WILL KEEP RUUNING in a loop unti all the ships can be placed on the board without them being off limits
-//tells you the ships name and if it has a ship in the position
+//this code will keep running a  loop unti all the ships can be placed on the board without them being off limits
+
     if (valid && nottaken){
         shipblocks.forEach(shipblock =>{
             shipblock.classList.add(ship.name)
@@ -184,17 +148,17 @@ function addshippiece(user, ship, startId) {
         if (user=== 'player') notDropped=true
     }
 
-    // console.log(shipblocks) 
+    // console.log(shipblocks)
+//tells you the ships name and if it has a ship in the posotion
+  
 
-//ADDS ALL 5 of the computer's ships to the board
+//adds all 5 ships to the board
 }
 ships.forEach(ship => addshippiece('computer', ship))
 
 
 //DRAG PLAYER SHIPS
-
-//for each ship its listening out for it to be dragged,  
-//2nd part to get all playerbloacks dragged and dropped to the board
+//for each ship its llistening out for it to be draagged,  2nd part to get all playerbloacks
 let draggedShip
 const optionships = Array.from(optioncontainer.children);
 optionships.forEach(optionship => optionship.addEventListener('dragstart', dragStart))
@@ -206,54 +170,38 @@ allplayerblocks.forEach(playerblock=> {
 }
 )
 
-/**
- * @param {*} element Here the element represents the piece being dragged
- * 
- */
-function dragStart(element){
+
+function dragStart(e){
     notDropped = false
-    draggedShip= (element.target)
+    draggedShip= (e.target)
 }
 
-/**
- * @param {*} element This input refers to te element being dragged over the board
- * The element being dragged is assigned to a variable named "draggedShip" using the "element.target" property
- */
-function dragOver(element){
-    element.preventDefault()
+
+function dragOver(e){
+    e.preventDefault()
     const ship = ships[draggedShip.id]
-    highlightArea(element.target.id, ship)
+    highlightArea(e.target.id, ship)
 }
-////getting the ships that we are dropping to add them onto the board, If the ship was not dropped successfully, "notDropped" will be set to true so this dragged ship will be removed from the game board
-  //The function "dropShip" is triggered when the user drops a ship on the game board and retirieves the id of the ship
-/**.
- * the function is used to add a ship to the game board when the user drops it, using the ship object and starting position ID passed in as arguments but removes them if not successful
- * @param {*} element  is an arguement contains information about the element triggered in the event
- */
-function dropShip(element){
-    const startId = element.target.id
+////getting the ships that we are dropping to add them, if nto dropped line says if it is dropped we want to remove it  but not if its nto dropped as it would be false then
+function dropShip(e){
+    const startId = e.target.id
+    // console.log("I AM GETTING DRAGGED", e)
     const ship = ships[draggedShip.id]
     addshippiece('player', ship, startId)
     if (!notDropped) {
         draggedShip.remove()
     }
 }
- // console.log("I AM GETTING DRAGGED", e)
 
-
-//ADD TRAIL whilst dragging the pieces
-/**
- * This function is used to add trail whilst dragging the pieces onto the gameboard
- * @param {*} startIndex  it specifies the starting index of the ship on the game board
- * @param {*} ship it specifies the type of ship being checked for validity and its positioning on the game board
- */
+//ADD HIGHLIGHT whilst dragging the pieces
+//WE COULD DELETE THIS BIT
 function highlightArea (startIndex,ship) {
     const allBoardBlocks = document.querySelectorAll('#player div')
     let ishorizontal= angle ===0
-//retuns shipsblock if its valid and its not taken
+//retuns sipsblock if its valid and id its not taken
     const{shipblocks, valid, nottaken}= getvalidity(allBoardBlocks, ishorizontal, startIndex, ship)
 
-//if its a valid move and not taken, makes sure hover has a timeout
+    //if its a valid move and noot taken, makes sure hover has a timout
     if (valid &&nottaken){
         shipblocks.forEach(shipblock => {
             shipblock.classList.add('hover')
@@ -267,17 +215,16 @@ let gameover=false
 let playerturn
 
 
-//START GAME and DIFFERENT player turns
+//START GAME
+//if stuff iss still in there in the option cotnainer of blockks aka ships to place it will send amessage tor rmind user to plac bloack
 
-/**
- * If ships still remains in the optioncontainer, it stops you for progressong with a game and will send a message to tell yoou to place the ship pieces first
- */
 function startgame() {
     if(playerturn===undefined){
         if(optioncontainer.children.length !=0){
             infoDisplay.textContent= 'Place all pieces first to begin!'
         }else{
-            //this below allows you to click on the computer board
+            //this below allows you to click on the computer bpard
+    
             const allBoardBlocks = document.querySelectorAll('#computer div')
             allBoardBlocks.forEach(block => block.addEventListener ('click' , handleClick))
             playerturn=true
@@ -292,21 +239,15 @@ let comouterhits = []
 const playersunkships = []
 const computersunkships = []
 
-
-/**
- * If player clicks on the class computerboard of the computer and its taken (ship present there) it will boom and turn red where it will display a message notifying the player that they hit the computer's ship
- * @param {*} element this input refers to the handclick element used to record what the player has clicked on
- */
-function handleClick(element){
+//if player clicks on computer board and its taken we know there is a ship there and it will go boom and turn red
+//it will also display a mssage  telling you hit computer ship
+function handleClick(e){
     if (!gameover){
-        if (element.target.classList.contains('taken'))
-            element.target.classList.add('boom')
+        if (e.target.classList.contains('taken'))
+            e.target.classList.add('boom')
             infoDisplay.textContent= 'You hit the computers ship!!!'
-            console.log("class3", element)
-            console.log("class0", element.target.classList)
-            let classes = Array.from(element.target.classList)
-            console.log("class", classes)
-            // the classes will not have following names below and therfore only the ship names
+            let classes = Array.apply(e.target.classList)
+            // the classes will not have following names,m therfore only the ship names
             classes = classes.filter(className => className!=='block')
             classes = classes.filter(className => className!=='boom')
             classes = classes.filter(className => className!=='taken')
@@ -315,38 +256,34 @@ function handleClick(element){
             checksScore('player',playerhits, playersunkships)
 
     }
-    // if the square clicked on doesn't contains part of a ship, it will display the message of no hit
-    if (!element.target.classList.contains('taken')){
+    // if the square doesn't contaons suare with take we know we didn't hit so it will display the mssage of no hit
+    if (!e.target.classList.contains('takem')){
         infoDisplay.textContent= 'No hit this time round.'
-        element.target.classList.add('empty')
+        e.target.classList.add('empty')
     }
-    // waits 2000ms (3 seconds) after your trun before computeer goes - delay
+    // wwaits 3000ms (3 seconds) after your trun before computeer goes - delay
     playerturn = false
     const allBoardBlocks = document.querySelectorAll('#computer div')
     allBoardBlocks.forEach(block => block. replaceWith(block.cloneNode(true)))
-    setTimeout(computerGO, 2000)
+    setTimeout(computerGO, 3000)
 }
 
 
-// DEFINES THE COMPUTERS GO
-
-/**
- * This defines the computers go - whether there is a hit. miss or the computer is thinking (2000ms)
- */
+// DEFINE COMPUTERS GO
 function computerGO(){
-    // if game is not over, it will proceed to the computer's go
+    // if game is not over the it will go tcomouters go
     if (!gameover){
         turnDisplay.textContent= "Computers go now!"
         infoDisplay.textContent= "Computer is thinking..."
-        // creates timeout before computer chooses
+        // creates time before computr chooses 
         setTimeout (() => {
-            // will give you a number between 1-99 that computer will choose from to hit
+            // will give you a number between 1-99 that comoutrr will choose from to hit
             let randomGO = Math.floor(Math.random() * width *width)
             const allBoardBlocks = document.querySelectorAll('#player div')
             // we know if container is taken and boom then computer gets 2nd chance
             if (allBoardBlocks[randomGO].classList.contains('taken') &&
                 allBoardBlocks[randomGO].classList.contains('boom')
-            // if computer hits ship, it will display msg and show the 3classes of block boom and taken
+            // // computr hits ship will display msg and show the 3classes of block boom and taken
             ){
                 computerGO()
                 return
@@ -363,31 +300,24 @@ function computerGO(){
                 comouterhits.push(...classes)
             // checks scores
                 checksScore('comouter', comouterhits, computersunkships)
-            // otherwise it will miss ad send this message, it will display after 2000ms (2 seconds)
+            // otherwise it will miss ad send this message, it will display after 300ms
             } else{
                 infoDisplay.textContent= 'Miss!'
                 allBoardBlocks[randomGO].classList.contains('empty')
              }
-        }, 2000)
-            // after 2sec timeout, its the players turn
+        }, 3000)
+            // putting it back to player turn
         setTimeout(() => {
             playerturn = true
             turnDisplay.textContent = 'Your turn!'
             infoDisplay.textContent = "Please take your go."
             const allBoardBlocks = document.querySelectorAll('#computer div')
             allBoardBlocks.forEach(block => block.addEventListener('click', handleClick))
-        // 2000+2000 = 4000
-        }, 4000)
+        // 3000+3000 = 6000
+        }, 6000)
     }
 }
-
-
-/**
- * Here it checks for the sunken ship through its name and length then notfies player which ship they sunk
- * @param {*} user  is the player of the game, used to check if they have hit.sunk ships
- * @param {*} userhits  its an array that contains the names of the ships hit by the user
- * @param {*} usersunkships its an array of ship names that the user has successfully sunk and checks all blocks within it to make sure it has sunk
- */
+// check for the sunken ship name by checking length and notfies player which ship they sunk
 function checksScore(user, userhits,usersunkships){
     function checkship (shipname, shipblockslength){
         if(
@@ -395,13 +325,11 @@ function checksScore(user, userhits,usersunkships){
         ){
             // updates user on which ship they hit
             if (user === 'player') {
-                console.log("test")
-                infoDisplay.textContent= `You sunk the computer's ${shipname}`
+                infoDisplay.textContent= `You sunk the computer's $shipname'`
                 playerhits=userhits.filter(storedshipname => storedshipname!== shipname)
             }
             if (user === 'computer') {
-                console.log("test")
-                infoDisplay.textContent= `Computer sunk your ${shipname}`
+                infoDisplay.textContent= `Computer sunk your $shipname'`
                 comouterhitsrhits=userhits.filter(storedshipname => storedshipname!== shipname)
             }
             usersunkships.push(shipname)
@@ -419,16 +347,16 @@ function checksScore(user, userhits,usersunkships){
     // WIN/ LOST MESSAGE
     // checks for each user if all 5 ships are sunken and respecitvely says who won or lost
     // gameover ensures you can't interact with it later
-    if(playersunkships.length===5) {
+    if(playersunkships===5) {
         infoDisplay.textContent='You have successfully sunken all 5 computer ships! YOU WIN!!!'
         gameover=true
     }
-    if(computersunkships.length===5) {
+    if(computersunkships===5) {
         infoDisplay.textContent='The computer has sunken all 5 of your ships. You lost :( Better luck next time!'
         gameover=true
     }
 
 }
 
-// listens for click of the start button to start the game
+// listens for click ot start game
 startbutton.addEventListener('click',startgame)
