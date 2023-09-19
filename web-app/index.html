@@ -3,7 +3,101 @@
 <!doctype html> <!-- This first line tells browsers to expect modern standard html 5 -->
 <html lang="en-gb"> <!-- This is indicates the page is written in British English, useful for accessibility -->
 <meta charset="utf-8"> <!-- This indicates how the file is encoded. utf-8 is standard -->
-<title>Your Web-app Title</title> <!-- All pages need a title, this will be displayed in the browser's title bar -->
+<title> ~Five-Letter Hangman~</title> <!-- All pages need a title, this will be displayed in the browser's title bar -->
+
+<link href="https://fonts.googleapis.com/css2?family=Caveat+Brush&display=swap" rel="stylesheet">
+
 <link rel="stylesheet" href="default.css"> <!-- Import style sheet – default.css -->
 <link rel="icon" href="./assets/favicon.png"> <!-- Import 'Favorites Icon' – favicon.png -->
-<script type="module" src="main.js"></script> <!-- Load the main script. Must be type="module". Have only one of these -->
+<script type="module" src="main.js"></script> s<!-- Load the main script. Must be type="module". Have only one of these -->
+</head>
+
+<!-- Start image and start button -->
+<body>
+  <div class=startpage style=position:relative;>
+    <img src=chalk_hangman_start.png class=chalk_hangman_start>
+     <!-- How to get it to scroll to the game when start button is pressed using :https://stackoverflow.com/questions/16349490/html-css-buttons-that-scroll-down-to-different-div-sections-on-a-webpage -->
+    <input type=button onClick="document.getElementById('gamecells').scrollIntoView();" value=START button class=startbuttonn style="position: absolute; top: 70%; right:35%; text-align: center; width: 200px; height: 50px; font-size: large; font-family: 'Caveat Brush', cursive;">
+  </div>
+
+</div>
+
+<!-- title of game -->
+  <h2 style="color:rgb(95, 17, 17); text-align:center"> ~Five-Letter Hangman~</h2>
+  <hr>
+</html>
+
+<!-- Shows game info in form of list -->
+<h3><ins>Game info + How the colours work:</ins></h3>
+  <li> <mark>You have 7 lives to get the five-letter word correct so pick letters carefully!</mark></li>
+  <li> <span style="color: green"><b>GREEN</b></span>: <small>The letter <ins>is</ins> present in the word</small></li>
+  <li> <span style="color: red"><b>RED</b></span>: <small>The letter <ins>is not</ins> present in the word</small></li>
+<hr> <!-- linebreak then displays image -->
+<img id=chalk_hangman src="chalk_hangman_7.png" height ="400" width ="400" alt="">
+
+<!-- background colour of beige-->
+<body style="background-color: beige;"></body>
+
+
+<!-- creates the 5 game cells -->
+<div id="gamecells" class="gamecells">
+  <div class="cells"></div>
+  <div class="cells"></div>
+  <div class="cells"></div>
+  <div class="cells"></div>
+  <div class="cells"></div>
+</div>
+
+<h3 style="color: rgb(95, 75, 21);"> Press chosen letter below</h3> <!-- creates the header-->
+<!-- creates the keyboard letters and ability to be clicked -->
+<div id="letters">
+  <input id="letter-q" type="button" value="Q" onclick="button_clicked('q');" class="letters" />
+  <input id="letter-w" type="button" value="W" onclick="button_clicked('w');" class="letters" />
+  <input id="letter-e" type="button" value="E" onclick="button_clicked('e');" class="letters" />
+  <input id="letter-r" type="button" value="R" onclick="button_clicked('r');" class="letters" />
+  <input id="letter-t" type="button" value="T" onclick="button_clicked('t');" class="letters" />
+  <input id="letter-y" type="button" value="Y" onclick="button_clicked('y');" class="letters" />
+  <input id="letter-u" type="button" value="U" onclick="button_clicked('u');" class="letters" />
+  <input id="letter-i" type="button" value="I" onclick="button_clicked('i');" class="letters" />
+  <input id="letter-o" type="button" value="O" onclick="button_clicked('o');" class="letters" />
+  <input id="letter-p" type="button" value="P" onclick="button_clicked('p');" class="letters" />
+  <p></p>
+  <input id="letter-a" type="button" value="A" onclick="button_clicked('a');" class="letters" />
+  <input id="letter-s" type="button" value="S" onclick="button_clicked('s');" class="letters" />
+  <input id="letter-d" type="button" value="D" onclick="button_clicked('d');" class="letters" />
+  <input id="letter-f" type="button" value="F" onclick="button_clicked('f');" class="letters" />
+  <input id="letter-g" type="button" value="G" onclick="button_clicked('g');" class="letters" />
+  <input id="letter-h" type="button" value="H" onclick="button_clicked('h');" class="letters" />
+  <input id="letter-j" type="button" value="J" onclick="button_clicked('j');" class="letters" />
+  <input id="letter-k" type="button" value="K" onclick="button_clicked('k');" class="letters" />
+  <input id="letter-l" type="button" value="L" onclick="button_clicked('l');" class="letters" />
+  <p></p>
+  <input id="letter-z" type="button" value="Z" onclick="button_clicked('z');" class="letters" />
+  <input id="letter-x" type="button" value="X" onclick="button_clicked('x');" class="letters" />
+  <input id="letter-c" type="button" value="C" onclick="button_clicked('c');" class="letters" />
+  <input id="letter-v" type="button" value="V" onclick="button_clicked('v');" class="letters" />
+  <input id="letter-b" type="button" value="B" onclick="button_clicked('b');" class="letters" />
+  <input id="letter-n" type="button" value="N" onclick="button_clicked('n');" class="letters" />
+  <input id="letter-m" type="button" value="M" onclick="button_clicked('m');" class="letters" />
+</div>
+
+
+<p></p>
+
+<!-- different attributes to be used in main.js-->
+<div id="livescounter">
+  <div class="lives">Lives: 7</div>
+</div>
+
+
+<div id=Lost></div>
+<div id=Win></div>
+<div id=Chosen-word></div>
+
+<p></p>
+<!-- reset button at the bottom of the page -->
+<input id="button-reset" style="background-color:darkslategrey; color: white; border-radius: 4px;" type="button"
+  value="Reset" onclick="reset();" class="button-reset" />
+  </div>
+
+  </body>

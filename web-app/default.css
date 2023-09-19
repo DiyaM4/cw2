@@ -1,0 +1,85 @@
+body{
+    font-family: 'Caveat Brush', cursive;
+    text-align: center;
+}
+
+
+.startpage{
+    align-items: center;
+    align-content: center;
+    position: relative;
+    text-align: center;
+    align-self: center;
+}
+
+
+.startpage img{
+  height: 100%;
+}
+
+
+.chalk_hangman_start{
+    height: 100%;
+    display: block;
+      margin: 0 auto;
+    }
+
+
+/* change colour of higligted text */
+mark {
+  background-color: rgb(187, 153, 91);
+  color: black;
+}
+
+
+.gamecells {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+
+.cells {
+    width: 50px;
+    height: 50px;
+    background-color: rgb(35,64,38,255);
+
+    margin: 10px;
+    border:solid 5px rgb(95, 75, 21);
+    border-radius: 10px;
+
+    text-align: center;
+    -webkit-text-fill-color: antiquewhite;
+    font-size: 40px;
+    text-transform: uppercase;
+    justify-content:center;
+    align-self: center;  
+}
+
+
+#livescounter{
+    text-align: center;
+}
+
+
+.button-reset{
+    width: 100%;
+    font-family: 'Caveat Brush', cursive;
+}
+
+
+.letters{
+    width: 40px;
+    height: 30px;
+    background-color: rgb(95, 75, 21);    
+    margin: 1px;
+    border:solid 5px rgb();
+    border-radius: 10px;
+
+    text-align: center;
+    -webkit-text-fill-color: antiquewhite;
+}
+
+
+
+
